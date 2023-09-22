@@ -1,8 +1,7 @@
 
 #include "Lab1_player_controller.h"
 int main(){
-    Player Naruto = Player("Hokage", 1000);
-    Naruto.print();
-
+    Controller Madara = Controller("Obito", 30);
+    Madara.print();
     return 0;
 }
