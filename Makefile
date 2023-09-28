@@ -1,10 +1,12 @@
 all: MyGame
 
-MyGame: main.o Lab1_player_controller.o
-	g++ main.o Lab1_player_controller.o -o MyGame
-main.o: main.cpp Lab1_player_controller.h
+MyGame: main.o controller.o player.o
+	g++ main.o player.o controller.o -o MyGame
+main.o: main.cpp
 	g++ -c main.cpp
-Lab1.o: Lab1_player_controller.h Lab1_player_controller.cpp
-	g++ -c Lab1_player_controller.cpp
+controller.o: controller.cpp controller.h
+	g++ -c controller.cpp
+player.o: player.cpp player.h
+	g++ -c player.cpp
 clean:
 	rm -rf *.o MyGame

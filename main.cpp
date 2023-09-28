@@ -1,7 +1,13 @@
-
-#include "Lab1_player_controller.h"
+#include "controller.h"
 int main(){
-    Controller Madara = Controller("Obito", 30);
-    Madara.print();
+    Player* momo = new Player;
+    *momo = Player("Strug", 90);
+    momo->print();
+    Controller cont = Controller(momo, 10, 10);
+    cont.print();
+    cont.move(down);
+    cont.print();
+    cont.move(left);
+    cont.print();
     return 0;
 }
