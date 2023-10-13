@@ -1,5 +1,16 @@
 #include "player.h"
 
+Player::Player(std::string name = "Noname", int max = 150) {
+    Players_name = name;
+    if(max > 255 || max < 1){
+        std::cout << "error: input maximum possible health out of range! Expect it to be 150!" <<std::endl;
+        max = 150;
+    }
+    //на старте игры полное здоровье
+    max_health = max;
+    health = max_health;
+    score = 0;
+}
 
 void Player::print(){
     std::cout << "Player: " << Players_name << std::endl;
