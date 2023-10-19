@@ -1,8 +1,8 @@
 #include "field.h"
 
 std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord, uint8_t flag){
-	//flag 0 - ширина и высотаб 1 - начало или конец
-	if(flag){
+	//flag 0 - ширина и высотаб 1 - начало или  2 - конец
+	if(flag == 1){
 
 		if(cord.first >= this->width) cord.first = 0;
 		if(cord.second >= this->height) cord.second = 0;
@@ -10,8 +10,16 @@ std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord,
 		return cord;
 	}
 
-	if(cord.first > MAX_WID || cord.first < 1) cord.first = 30;
-	if(cord.second > MAX_HEI || cord.second < 1) cord.second = 30;
+	if(flag == 2){
+
+			if(cord.first >= this->width) cord.first = width-1;
+			if(cord.second >= this->height) cord.second = height - 1;
+
+			return cord;
+	}
+
+	if(cord.first > MAX_WID || cord.first < 2) cord.first = 30;
+	if(cord.second > MAX_HEI || cord.second < 2) cord.second = 30;
 
 	return cord;
 }
@@ -19,10 +27,11 @@ std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord,
 Field::Field(std::pair<uint8_t, uint8_t> wid_hei, std::pair<uint8_t, uint8_t> beg, std::pair<uint8_t, uint8_t> fin){
 	wid_hei = this->check_cords(wid_hei, 0);
 	width = wid_hei.first;
+	height = wid_hei.second;
 
 	beg = this->check_cords(beg, 1);
-	fin = this->check_cords(fin, 1);
-	height = wid_hei.second;
+	fin = this->check_cords(fin, 2);
+
 	start = beg;
 	finish = fin;
 
@@ -48,13 +57,12 @@ void Field::prt(){
 }
 
 Field::~Field(){
-	for(int i = 0; i < height; i++){
-		for(int j = 0; j < width; j++){
-			delete (field[i][j]).get_event();
+	if(this->field != nullptr){
+		for(int i = 0; i < height; i++){
+			delete [] field[i];
 		}
-		delete [] field[i];
+		delete [] field;
 	}
-	delete [] field;
 }
 
 uint8_t Field::get_width(){
@@ -76,6 +84,11 @@ Cell& Field::get_cell(std::pair<uint8_t, uint8_t> cel){
 	return this->field[(int)cel.second][(int)cel.first];
 }
 
+
+Cell** Field::get_adress(){
+	return field;
+}
+
 Field::Field(const Field &fld){
 	this->width = fld.width;
 	this->height = fld.height;
@@ -95,10 +108,40 @@ Field::Field(const Field &fld){
 	}
 }
 
+Field& Field::operator =(const Field& fld){
+	if(&fld == this) return *this;
+	this->width = fld.width;
+	this->height = fld.height;
+	this->start = fld.start;
+	this->finish = fld.finish;
+
+	this->field = new Cell *[height];
+	for(int i = 0; i < height; i++){
+		this->field[i] = new Cell[width];
+	}
+
+
+	for(int i = 0; i < height; i++){
+		for(int j = 0; j < width; j++){
+			this->field[i][j] = fld.field[i][j];
+		}
+	}
+	return *this;
+}
+
 Field::Field(Field &&fld): width(fld.width), height(fld.height), start(fld.start), finish(fld.finish), field(fld.field){
 	fld.field = nullptr;
 }
 
+Field& Field::operator =(Field&& fld){
 
+	this->width = fld.width;
+	this->height = fld.height;
+	this->start = fld.start;
+	this->finish = fld.finish;
+	this->field = fld.field;
+	fld.field = nullptr;
+	return *this;
+}
 
 
