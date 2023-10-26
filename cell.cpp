@@ -1,14 +1,5 @@
 #include "cell.h"
-
-Event::Event(std::string nm){
-	name = nm;
-}
-
-Event::Event(const Event& eve){
-	name = eve.name;
-}
-
-
+#include "event.h"
 
 Cell::Cell(std::pair<uint8_t, uint8_t> xy, bool igt, Event* eve, cell_status sts){
 	is_go_through = igt;
@@ -44,11 +35,6 @@ void Cell::prt(){
 	std::cout << "------------" << std::endl;
 	std::cout << "Cell at:" << " ("<< (int)cords.first << ", " << (int)cords.second << "). " << std::endl <<"Is go through? " << is_go_through << std::endl;
 	std::cout << "Cell status: " << this->get_status() << std::endl;
-	if(this->event != nullptr){
-		std::cout << "Event: " << (*(this->event)).name << std::endl;
-	}else{
-		std::cout << "No event cell" << std::endl;
-	}
 	std::cout << "------------" << std::endl;
 };
 
@@ -60,7 +46,7 @@ Cell& Cell::operator=(const Cell& cl){
 	if(cl.event == nullptr){
 		this->event = nullptr;
 	}else{
-		this->event = new Event{*(cl.event)};
+		this->event = cl.event->clone();
 	}
 
 	return *this;
@@ -70,4 +56,5 @@ Cell::~Cell(){
 	if(event != nullptr){
 		delete this->event;
 	}
+
 }

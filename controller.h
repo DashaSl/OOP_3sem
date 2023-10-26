@@ -14,6 +14,12 @@ private:
 public:
     Controller(Player &plr, Field &fld);
     bool move(Move_constant way);
+    Player& get_player();
+    Field& get_field();
+    uint8_t get_width();
+	uint8_t get_height();
+	void change_cords(uint8_t x, uint8_t y);
+	void prt_cur_player();
 };
 
 #endif //OOP_3SEM_PROJECT_CONTROLLER_2_H

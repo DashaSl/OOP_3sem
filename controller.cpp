@@ -40,3 +40,28 @@ bool Controller::move(Move_constant way){
     }
     return false;
 }
+
+Player& Controller::get_player(){
+	return character;
+}
+Field& Controller::get_field(){
+	return field;
+}
+uint8_t Controller::get_width(){
+	return width;
+}
+uint8_t Controller::get_height(){
+	return height;
+}
+void Controller::change_cords(uint8_t x, uint8_t y){
+	cord[0] = x;
+	cord[1] = y;
+}
+void Controller::prt_cur_player(){
+	std::cout << "Im at: ("<<(int)cord[0] << ", " <<(int)cord[1]<< ")\n";
+	std::cout << "My health: "<< (int)character.get_health() << "\n";
+	std::cout << "My score: " << (int)character.get_score() << '\n';
+}
+
+
+

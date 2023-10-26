@@ -1,4 +1,7 @@
 #include "controller.h"
+
+
+#include <typeinfo>
 int main(){
 	/*
     Player momo = Player("Strug", 90);
@@ -20,7 +23,7 @@ int main(){
     greg.print();
     Controller cont2 = Controller(greg, 80, 80);
     cont2.print();
-    */
+    *//*
 	Player momo = Player("Strug", 90);
 	momo.print();
 	std::pair<uint8_t, uint8_t> tmp, tmp2, tmp3, tmp4;
@@ -45,20 +48,39 @@ int main(){
 	std::cout << "поэтому std::move - опасен лишний раз\n";
 	Field fl3 = Field(field_0); //копия
 	Field fl4 = Field(std::move(field_0));
+	Field fl5 = Field(std::make_pair(20, 20), std::make_pair(0, 0), std::make_pair(19, 19));
+	Field fl6 = fl5;
+	std::cout << "TTTTTTTTTT\n";
+	fl5.prt();
+	fl6.prt();
 	std::cout << "test2 - changing event in the copies\n";
+	*/
+	Player momo = Player("Strug", 90);
 
-	Field fl_orig = Field(std::make_pair(20, 20), std::make_pair(2, 2), std::make_pair(10, 10));
+	Field fl_orig = Field(std::make_pair(25, 25), std::make_pair(5, 10), std::make_pair(12, 17));
 	Field fl_copy = Field(fl_orig);
 	Cell& test_cell = fl_copy.get_cell(std::make_pair(0, 0));
-	Event* eve = new Event{"Kanye West is genius\n"};
+	Event* eve = new TeleportEvent{};
+	Event* eve2 = new BadEvent{};
+	Event* eve3 = new GoodEvent{};
 	test_cell.change_event(eve);
 	Cell& orig_cell = fl_orig.get_cell(std::make_pair(0, 0));
 
 	orig_cell.prt();
 	test_cell.prt();
+	std::cout << std::endl << eve2->type() << std::endl <<std::endl;
+	Controller cont = Controller(momo, fl_copy);
+	cont.prt_cur_player();
+	eve->event_happens(&cont);
+	cont.prt_cur_player();
+
+	Field copy_of_changed = fl_copy;
+	Cell& copy_of_copy = copy_of_changed.get_cell(std::make_pair(0, 0));
+	copy_of_copy.prt();
 
 
-
+	delete eve2;
+	delete eve3;
 	/*
 	Field& gg = f;
 	//f.prt();
@@ -93,5 +115,6 @@ int main(){
 	std::cout << "!!!meanwhile cell (0, 0) of original\n";
 	test_new_cell.prt();
 	*/
+	std::cout << "Programm finished!\n";
     return 0;
 }

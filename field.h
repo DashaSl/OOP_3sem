@@ -3,6 +3,10 @@
 #include "cell.h"
 #define MAX_WID 50
 #define MAX_HEI 50
+#define MID_HEI 30
+#define MID_WID 30
+#define MIN_HEI 2
+#define MIN_WID 2
 
 class Field{
 private:

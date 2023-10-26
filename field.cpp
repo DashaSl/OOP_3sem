@@ -18,8 +18,8 @@ std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord,
 			return cord;
 	}
 
-	if(cord.first > MAX_WID || cord.first < 2) cord.first = 30;
-	if(cord.second > MAX_HEI || cord.second < 2) cord.second = 30;
+	if(cord.first > MAX_WID || cord.first < MIN_WID) cord.first = MID_WID;
+	if(cord.second > MAX_HEI || cord.second < MIN_HEI) cord.second = MID_HEI;
 
 	return cord;
 }

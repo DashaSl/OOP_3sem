@@ -1,7 +1,6 @@
 #ifndef CELL
 #define CELL
 
-
 #ifndef BASIC
 #define BASIC
 #include <iostream>
@@ -11,12 +10,10 @@
 
 //класс события в будующем будет перведён в свой .h, пока это заглушка
 enum cell_status {start = 0, event, noevent, finish};
-class Event{
-public:
-	std::string name;
-	Event(std::string nm = "noname");
-	Event(const Event& eve);
-};
+
+#include "goodevent.h"
+#include "badevent.h"
+#include "teleportevent.h"
 
 class Cell{
 private:
