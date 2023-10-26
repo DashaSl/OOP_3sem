@@ -48,11 +48,25 @@ Field::Field(std::pair<uint8_t, uint8_t> wid_hei, std::pair<uint8_t, uint8_t> be
 }
 
 void Field::prt(){
-	std::cout << "------field-------"<<std::endl;
-	std::cout << "size: width = " << (int)width << ", height = "<< (int)height << std::endl;
-	std::cout << "start: x = "<< (int)start.first << ", y = " << (int)start.second << ". Status: " <<  (this->field[start.second][start.first]).get_status() << std::endl;
-	std::cout << "finish: x = "<< (int)finish.first << ", y = " << (int)finish.second << ". Status: " <<  (this->field[finish.second][finish.first]).get_status() << std::endl;
-	std::cout << "----end field-----"<<std::endl;
+	for(int i = 0; i < width+1; i++){
+		std::cout <<"--";
+	}
+	std::cout << '\n';
+	for(int i = 0; i < height; i++){
+		std::cout << "-";
+		for(int j = 0; j < width; j++){
+			if((this->get_cell(std::make_pair(j, i))).get_is_go_through()){
+				std::cout << "  ";
+			}else{
+				std::cout << "||";
+			}
+		}
+		std::cout << "-" <<std::endl;
+	}
+	for(int i = 0; i < width+1; i++){
+		std::cout <<"--";
+	}
+	std::cout << '\n';
 
 }
 

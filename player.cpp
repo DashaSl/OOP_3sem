@@ -2,9 +2,9 @@
 
 Player::Player(std::string name = "Noname", int max = 150) {
     Players_name = name;
-    if(max > 255 || max < 1){
-        std::cout << "error: input maximum possible health out of range! Expect it to be 150!" <<std::endl;
-        max = 150;
+    if(max > MAX_HEALTH || max < MIN_HEALTH){
+        std::cout << "error: input maximum possible health out of range! Expect it to be 100!" <<std::endl;
+        max = MID_HEALTH;
     }
     //на старте игры полное здоровье
     max_health = max;

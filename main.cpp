@@ -1,7 +1,6 @@
 #include "controller.h"
+#include "fieldgenerator.h"
 
-
-#include <typeinfo>
 int main(){
 	/*
     Player momo = Player("Strug", 90);
@@ -54,7 +53,7 @@ int main(){
 	fl5.prt();
 	fl6.prt();
 	std::cout << "test2 - changing event in the copies\n";
-	*/
+	*//*
 	Player momo = Player("Strug", 90);
 
 	Field fl_orig = Field(std::make_pair(25, 25), std::make_pair(5, 10), std::make_pair(12, 17));
@@ -78,9 +77,70 @@ int main(){
 	Cell& copy_of_copy = copy_of_changed.get_cell(std::make_pair(0, 0));
 	copy_of_copy.prt();
 
-
+	c
 	delete eve2;
-	delete eve3;
+	delete eve3;*/
+
+	std::cout << "move and event work check\n\n";
+	Player plr = Player("Bob", 30);
+	Field fl_orig = Field(std::make_pair(25, 25), std::make_pair(0, 0), std::make_pair(12, 17));
+	Cell& test_cell = fl_orig.get_cell(std::make_pair(1, 0));
+	Event* eve = new TeleportEvent{};
+	test_cell.change_event(eve);
+	Controller cont = Controller(plr, fl_orig);
+	cont.prt_cur_player();
+	cont.move(right);
+
+	cont.prt_cur_player();
+	std::cout << "\nend of move and event work check\n\n";
+	std::cout << "copy move and event work check\n\n";
+	Field fl_copy = fl_orig;
+	Player plr_2 = Player("Becky", 40);
+	Controller cont2 = Controller(plr_2, fl_copy);
+
+	cont2.prt_cur_player();
+	cont2.move(right);
+
+	cont2.prt_cur_player();
+
+	std::cout << "end copy move and event work check\n\n";
+
+	std::cout << "check lvl generation\n\n";
+	FieldGenerator gen_fl = FieldGenerator();
+	Field generated_fl = gen_fl.generate_lvl1();
+
+
+
+	generated_fl.prt();
+	bool is_g_t;
+	for(int i = 0; i < generated_fl.get_width(); i++){
+		is_g_t = (generated_fl.get_cell(std::make_pair(i, 1))).get_is_go_through();
+		if(is_g_t){
+			if((generated_fl.get_cell(std::make_pair(i, 1))).get_status() == noevent){
+				std::cout << "0";
+			}else{
+				std::cout<< ((generated_fl.get_cell(std::make_pair(i, 1))).get_event())->type();
+			}
+		}else{
+			std::cout << "x";
+		}
+	}
+	std::cout << "\n";
+
+	Field hor_fl = gen_fl.generate_lvl2();
+	hor_fl.prt();
+	for(int i = 0; i < hor_fl.get_height(); i++){
+		is_g_t = (hor_fl.get_cell(std::make_pair(1, i))).get_is_go_through();
+		if(is_g_t){
+			if((hor_fl.get_cell(std::make_pair(1, i))).get_status() == noevent){
+				std::cout << "0";
+			}else{
+				std::cout<< ((hor_fl.get_cell(std::make_pair(1, i))).get_event())->type();
+			}
+		}else{
+			std::cout << "x";
+		}
+	}
 	/*
 	Field& gg = f;
 	//f.prt();

@@ -13,6 +13,7 @@ private:
     uint8_t height;
 public:
     Controller(Player &plr, Field &fld);
+    bool event_check();
     bool move(Move_constant way);
     Player& get_player();
     Field& get_field();

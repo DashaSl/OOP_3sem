@@ -8,7 +8,15 @@ Controller::Controller(Player& plr, Field &fld) : character(plr), field(fld){
 	height = field.get_height();
 }
 
-
+bool Controller::event_check(){
+	Cell& cur_cell = (this->field).get_cell(std::make_pair(cord[0], cord[1]));
+	if(cur_cell.get_status() == (cell_status) 1){
+		(cur_cell.get_event())->event_happens(this);
+		return true;
+	}else{
+		return false;
+	}
+}
 
 bool Controller::move(Move_constant way){
 	int8_t tmp = 0;
@@ -30,6 +38,7 @@ bool Controller::move(Move_constant way){
     bool check = field.get_cell(std::make_pair((uint8_t)cord[0], (uint8_t)cord[1])).get_is_go_through();
 
     if(check){
+    	this->event_check();
     	return true;
     }
     std::cout << "this cell is not passable!" << std::endl;

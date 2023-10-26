@@ -1,7 +1,7 @@
 all: MyGame
 
-MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o
-	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o -o MyGame
+MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o
+	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o -o MyGame
 main.o: main.cpp controller.h player.h cell.h field.h
 	g++ -c main.cpp
 controller.o: controller.cpp controller.h player.h field.h
@@ -20,6 +20,7 @@ badevent.o: badevent.h badevent.cpp event.h
 	g++ -c badevent.cpp
 goodevent.o: goodevent.h goodevent.cpp event.h
 	g++ -c goodevent.cpp
-
+fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h
+	g++ -c fieldgenerator.cpp
 clean:
 	rm -rf *.o MyGame

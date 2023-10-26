@@ -6,7 +6,9 @@
 #include <iostream>
 #include <string>
 #endif
-
+#define MAX_HEALTH 150
+#define MID_HEALTH 100
+#define MIN_HEALTH 70
 
 class Player{
 private: //характеристики
