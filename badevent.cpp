@@ -1,6 +1,6 @@
 #include "badevent.h"
 #include "controller.h"
-BadEvent::BadEvent(){}
+BadEvent::BadEvent(Controller& cont) : controller(cont){}
 
 int BadEvent::type(){
 	return 2;

@@ -1,7 +1,8 @@
 #include "goodevent.h"
 #include "controller.h"
 
-GoodEvent::GoodEvent(){}
+GoodEvent::GoodEvent(Controller& cont) : controller(cont){}
+
 int GoodEvent::type(){
 	return 1;
 }

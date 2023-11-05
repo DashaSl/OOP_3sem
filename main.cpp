@@ -2,6 +2,7 @@
 #include "fieldgenerator.h"
 
 int main(){
+	std::srand(time(0));
 	/*
     Player momo = Player("Strug", 90);
     momo.print();
@@ -80,7 +81,7 @@ int main(){
 	c
 	delete eve2;
 	delete eve3;*/
-
+	/*
 	std::cout << "move and event work check\n\n";
 	Player plr = Player("Bob", 30);
 	Field fl_orig = Field(std::make_pair(25, 25), std::make_pair(0, 0), std::make_pair(12, 17));
@@ -175,6 +176,14 @@ int main(){
 	std::cout << "!!!meanwhile cell (0, 0) of original\n";
 	test_new_cell.prt();
 	*/
-	std::cout << "Programm finished!\n";
+	Player plr = Player("Lise", 120);
+	Controller cont = Controller(plr);
+	cont.prt();
+	FieldGenerator gen = FieldGenerator();
+	gen.generate_lvl1(cont);
+	cont.prt();
+	gen.generate_lvl2(cont);
+	cont.prt();
+	std::cout << "\nProgramm finished!\n";
     return 0;
 }
