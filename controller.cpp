@@ -1,7 +1,7 @@
 #include "controller.h"
 
 
-Controller::Controller(Player& plr, Field* fld) : character(plr){
+Controller::Controller(Field* fld){
 	field = fld;
 	if(fld != nullptr){
 		cord[0] = fld->get_start().first;
@@ -16,10 +16,15 @@ Controller::Controller(Player& plr, Field* fld) : character(plr){
 	}
 }
 
+std::pair<uint8_t, uint8_t> Controller::get_cord(){
+	std::pair<uint8_t, uint8_t> tmp = std::make_pair(cord[0], cord[1]);
+	return tmp;
+}
+
 bool Controller::event_check(){
 	Cell& cur_cell = (this->field)->get_cell(std::make_pair(cord[0], cord[1]));
 	if(cur_cell.get_status() == (cell_status) 1){
-		(cur_cell.get_event())->event_happens(this);
+		(cur_cell.get_event())->event_happens();
 		return true;
 	}else{
 		return false;
@@ -59,9 +64,6 @@ bool Controller::move(Move_constant way){
     return false;
 }
 
-Player& Controller::get_player(){
-	return character;
-}
 Field* Controller::get_field(){
 	return field;
 }
@@ -77,8 +79,6 @@ void Controller::change_cords(uint8_t x, uint8_t y){
 }
 void Controller::prt(){
 	std::cout << "Im at: ("<<(int)cord[0] << ", " <<(int)cord[1]<< ")\n";
-	std::cout << "My health: "<< (int)character.get_health() << "\n";
-	std::cout << "My score: " << (int)character.get_score() << '\n';
 
 	if(field != nullptr){
 		this->field->prt();
@@ -86,6 +86,32 @@ void Controller::prt(){
 		std::cout << "no field.\n";
 	}
 }
+void Controller::prt2(){
+	for(int i = 0; i < width+1; i++){
+		std::cout <<"--";
+	}
+	std::cout << '\n';
+	for(int i = 0; i < height; i++){
+		std::cout << "-";
+		for(int j = 0; j < width; j++){
+			if(i == cord[1] && j == cord[0]){
+				std::cout << "@@";
+			}else{
+				if((this->field->get_cell(std::make_pair(j, i))).get_is_go_through()){
+					std::cout << "  ";
+				}else{
+					std::cout << "||";
+			}
+			}
+		}
+		std::cout << "-" <<std::endl;
+	}
+	for(int i = 0; i < width+1; i++){
+		std::cout <<"--";
+	}
+	std::cout << '\n';
+}
+
 
 void Controller::change_field(Field* fld){
 	if(this->field != nullptr){

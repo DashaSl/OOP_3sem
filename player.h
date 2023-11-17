@@ -5,6 +5,7 @@
 #define BASIC
 #include <iostream>
 #include <string>
+#include <cstdint>
 #endif
 #define MAX_HEALTH 150
 #define MID_HEALTH 100
@@ -23,13 +24,15 @@ public:
     //сеттеры
     void change_health(int change);
     void change_score(uint16_t change);
+    void change_max_health(uint8_t new_max_health);
+    void change_name(std::string new_name);
 
     //геттеры
     std::string get_name();
     uint8_t get_health();
     uint8_t get_max_health();
     uint16_t get_score();
-    Player(std::string name, int max);
+    Player(std::string name = "Noname", int max = MID_HEALTH);
     void print();
 };
 

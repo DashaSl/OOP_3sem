@@ -5,10 +5,11 @@
 class TeleportEvent : public Event{
 private:
 	Controller& controller;
+	Player& player;
 public:
-	TeleportEvent(Controller& cont);
+	TeleportEvent(Controller& cont, Player& plr);
 	Event* clone();
 	int type();
-	void event_happens(Controller* cont) override;
+	void event_happens() override;
 };
 #endif

@@ -2,7 +2,7 @@
 #include "controller.h"
 FieldGenerator::FieldGenerator(){}
 
-void FieldGenerator::generate_lvl1(Controller& cont){
+void FieldGenerator::generate_lvl1(Controller& cont, Player& plr){
 	Field* ans = new Field{std::make_pair(LVL1_W,LVL1_H), std::make_pair(0, 0), std::make_pair(LVL1_W - 1, LVL1_H - 1)};
 	Event* eve;
 	int bad_ind, good_ind, telep_ind, noeve_ind;
@@ -23,24 +23,26 @@ void FieldGenerator::generate_lvl1(Controller& cont){
 			noeve_ind = std::rand() % LVL1_W;
 		}while(noeve_ind == bad_ind || noeve_ind == good_ind || noeve_ind == telep_ind);
 
-		eve = new BadEvent{cont};
+		eve = new BadEvent{cont, plr};
 		ans->get_cell(std::make_pair(bad_ind, y)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(bad_ind, y)).change_event(eve);
 
-		eve = new GoodEvent{cont};
+		eve = new GoodEvent{cont, plr};
 		ans->get_cell(std::make_pair(good_ind, y)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(good_ind, y)).change_event(eve);
 
-		eve = new TeleportEvent{cont};
+		eve = new TeleportEvent{cont, plr};
 		ans->get_cell(std::make_pair(telep_ind, y)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(telep_ind, y)).change_event(eve);
 
 		ans->get_cell(std::make_pair(noeve_ind, y)).change_is_go_through(true);
 	}
+	eve = nullptr;
 	cont.change_field(ans);
+	ans = nullptr;
 }
 
-void FieldGenerator::generate_lvl2(Controller& cont){
+void FieldGenerator::generate_lvl2(Controller& cont, Player& plr){
 	Field* ans =new Field{std::make_pair(LVL2_W,LVL2_H), std::make_pair(0, 0), std::make_pair(LVL1_W - 1, LVL1_H - 1)};
 	Event* eve;
 	int bad_ind, good_ind, telep_ind, noeve_ind;
@@ -61,19 +63,21 @@ void FieldGenerator::generate_lvl2(Controller& cont){
 			noeve_ind = std::rand() % LVL2_H;
 		}while(noeve_ind == bad_ind || noeve_ind == good_ind || noeve_ind == telep_ind);
 
-		eve = new BadEvent{cont};
+		eve = new BadEvent{cont, plr};
 		ans->get_cell(std::make_pair(x, bad_ind)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(x, bad_ind)).change_event(eve);
 
-		eve = new GoodEvent{cont};
+		eve = new GoodEvent{cont, plr};
 		ans->get_cell(std::make_pair(x, good_ind)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(x, good_ind)).change_event(eve);
 
-		eve = new TeleportEvent{cont};
+		eve = new TeleportEvent{cont, plr};
 		ans->get_cell(std::make_pair(x, telep_ind)).change_is_go_through(true);
 		ans->get_cell(std::make_pair(x, telep_ind)).change_event(eve);
 
 		ans->get_cell(std::make_pair(x, noeve_ind)).change_is_go_through(true);
 	}
+	eve = nullptr;
 	cont.change_field(ans);
+	ans = nullptr;
 }

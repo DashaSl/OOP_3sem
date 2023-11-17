@@ -9,7 +9,7 @@ class Controller;
 class FieldGenerator{
 public:
 	FieldGenerator();
-	void generate_lvl1(Controller& cont);
-	void generate_lvl2(Controller& cont);
+	void generate_lvl1(Controller& cont, Player& plr);
+	void generate_lvl2(Controller& cont, Player& plr);
 };
 #endif

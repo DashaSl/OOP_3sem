@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(std::string name = "Noname", int max = 150) {
+Player::Player(std::string name, int max) {
     Players_name = name;
     if(max > MAX_HEALTH || max < MIN_HEALTH){
         std::cout << "error: input maximum possible health out of range! Expect it to be 100!" <<std::endl;
@@ -47,4 +47,11 @@ uint16_t Player::get_score(){
 
 uint8_t Player::get_max_health(){
     return max_health;
+}
+void Player::change_max_health(uint8_t new_health_max){
+	max_health = new_health_max;
+	health = max_health;
+}
+void Player::change_name(std::string new_name){
+	Players_name = new_name;
 }

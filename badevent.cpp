@@ -1,6 +1,7 @@
 #include "badevent.h"
 #include "controller.h"
-BadEvent::BadEvent(Controller& cont) : controller(cont){}
+#include "player.h"
+BadEvent::BadEvent(Controller& cont, Player& plr) : controller(cont), player(plr){}
 
 int BadEvent::type(){
 	return 2;
@@ -8,6 +9,6 @@ int BadEvent::type(){
 Event* BadEvent::clone(){
 	return new BadEvent(*this);
 }
-void BadEvent::event_happens(Controller* cont){
-	(cont->get_player()).change_health(SUB_HEALTH);
+void BadEvent::event_happens(){
+	player.change_health(SUB_HEALTH);
 }

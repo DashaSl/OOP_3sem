@@ -1,7 +1,7 @@
 #include "goodevent.h"
 #include "controller.h"
-
-GoodEvent::GoodEvent(Controller& cont) : controller(cont){}
+#include "player.h"
+GoodEvent::GoodEvent(Controller& cont, Player& plr) : controller(cont), player(plr){}
 
 int GoodEvent::type(){
 	return 1;
@@ -9,6 +9,6 @@ int GoodEvent::type(){
 Event* GoodEvent::clone(){
 	return new GoodEvent(*this);
 }
-void GoodEvent::event_happens(Controller* cont){
-	(cont->get_player()).change_score(ADD_SCORE);
+void GoodEvent::event_happens(){
+	player.change_score(ADD_SCORE);
 }

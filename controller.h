@@ -6,13 +6,12 @@ enum Move_constant {up = -1, left, down , right}; // down - 1, up - -1, left - 0
 
 class Controller{
 private:
-    Player& character;
     Field* field;
     uint8_t cord[2];
     uint8_t width;
     uint8_t height;
 public:
-    Controller(Player &plr, Field* fld = nullptr);
+    Controller(Field* fld = nullptr);
     ~Controller();
     bool event_check();
     bool move(Move_constant way);
@@ -21,7 +20,9 @@ public:
     uint8_t get_width();
 	uint8_t get_height();
 	void change_cords(uint8_t x, uint8_t y);
+	std::pair<uint8_t, uint8_t> get_cord();
 	void prt();
+	void prt2();
 	void change_field(Field* fld);
 };
 
