@@ -1,7 +1,8 @@
 #include "game.h"
 
-Game::Game(GameMover* rd, std::string name, int lvl){
+Game::Game(GameMover* rd, std::string name, int lvl, GameMover* rd_ex){
 	read = rd;
+	read_ex = rd_ex;
 
 	uint8_t hp = MIN_HEALTH + std::rand()%(MAX_HEALTH-MIN_HEALTH);
 	player = new Player{name, hp};
@@ -58,7 +59,8 @@ int Game::run(){
 	std::string new_name;
 	int lvl;
 	controller->prt2();
-	while(c != 'z' && !this->is_finish() && this->is_alive()){
+	GameMover* tmp;
+	while(c != 'z' && !this->is_finish() && this->is_alive() && c != EOF){
 		c = read->key_operator();
 		switch(c){
 			case 'w':
@@ -93,6 +95,9 @@ int Game::run(){
 				std::cout << '\n';
 				this->start_new(new_name, lvl);
 				break;
+			case 'm':
+				this->change_stream();
+				break;
 			default:
 				break;
 		}
@@ -101,6 +106,16 @@ int Game::run(){
 	if(!this->is_alive()) return 1;
 	return 0;
 
+}
+
+void Game::change_stream(){
+	if(read_ex == nullptr){
+		std::cout << "No extra stream was given.\n";
+	}else{
+		GameMover* tmp = read;
+		read = read_ex;
+		read_ex = tmp;
+	}
 }
 
 

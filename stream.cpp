@@ -20,6 +20,8 @@ char StreamMove::key_operator(){
 			return c;
 		case 'z':
 			return 'z';
+		case 'm':
+			return c;
 		default:
 			return 'u';
 	}

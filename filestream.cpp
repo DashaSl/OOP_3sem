@@ -20,8 +20,10 @@ char FileStream::key_operator(){
 			return c;
 		case 'e':
 			return c;
+		case 'm':
+			return c;
 		case 'z':
-			return 'z';
+			return c;
 		default:
 			return 'u';
 	}

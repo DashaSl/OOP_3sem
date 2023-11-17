@@ -27,7 +27,8 @@ int main(){
 	int a = gm.run();
 	std::cout << "programm finished!\n";
 	GameMover* fp2 = new StreamMove();
-	Game gm2 = Game(fp2, "Lena", 3);
+	GameMover* fp3 = new FileStream("text2.txt");
+	Game gm2 = Game(fp3, "Lena", 3, fp2);
 	gm2.run();
 
     return 0;
