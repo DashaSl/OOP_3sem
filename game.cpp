@@ -57,24 +57,28 @@ int Game::run(){
 	char c;
 	std::string new_name;
 	int lvl;
-	controller->prt();
+	controller->prt2();
 	while(c != 'z' && !this->is_finish() && this->is_alive()){
 		c = read->key_operator();
 		switch(c){
 			case 'w':
 				controller->move(up);
+				player->print();
 				controller->prt2();
 				break;
 			case 'd':
 				controller->move(right);
+				player->print();
 				controller->prt2();
 				break;
 			case 's':
 				controller->move(down);
+				player->print();
 				controller->prt2();
 				break;
 			case 'a':
 				controller->move(left);
+				player->print();
 				controller->prt2();
 				break;
 			case 'q':

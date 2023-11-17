@@ -13,8 +13,8 @@ Player::Player(std::string name, int max) {
 }
 
 void Player::print(){
-    std::cout << "Player: " << Players_name << std::endl;
-    std::cout << "Health: " << (int) health <<", " << "score: " << score << std::endl;
+    std::cout << "player: " << Players_name;
+    std::cout << " health: " << (int) health <<", " << "score: " << score << std::endl;
 };
 
 //сеттеры

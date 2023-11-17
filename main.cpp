@@ -29,5 +29,6 @@ int main(){
 	GameMover* fp2 = new StreamMove();
 	Game gm2 = Game(fp2, "Lena", 3);
 	gm2.run();
+
     return 0;
 }
