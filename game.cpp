@@ -1,102 +1,77 @@
 #include "game.h"
 
-Game::Game(GameMover* rd, std::string name, int lvl, GameMover* rd_ex){
-	read = rd;
-	read_ex = rd_ex;
+Game::Game(std::string name, std::string path){
+	if(path != ""){
+		read.stream_change(path);
+	}
 
 	uint8_t hp = MIN_HEALTH + std::rand()%(MAX_HEALTH-MIN_HEALTH);
-	player = new Player{name, hp};
-	controller = new Controller();
-	if(lvl%2){
-		gen.generate_lvl1(*controller, *player);
-	}else{
-		gen.generate_lvl2(*controller, *player);
-	}
-	std::cout << "You are " << player->get_name() << " hp: " << (int)player->get_max_health() << '\n';
+	player = Player(name, hp);
+	controller = Controller();
+	gen.generate_lvl(controller, player);
+	std::cout << "You are " << player.get_name() << " hp: " << (int)player.get_max_health() << '\n';
 	std::cout << "YOUR FIELD :\n";
-	controller->prt();
+	controller.prt();
 }
 
-Game::~Game(){
-	delete this->player;
-	delete this->controller;
-}
 
 bool Game::is_alive(){
-	if(player->get_health() != 0) return true;
+	if(player.get_health() != 0) return true;
 	return 0;
 }
 
 bool Game::is_finish(){
-	std::pair<uint8_t, uint8_t> tmp1 = controller->get_field()->get_finish();
-	std::pair<uint8_t, uint8_t> tmp2 = controller->get_cord();
+	std::pair<uint8_t, uint8_t> tmp1 = controller.get_field()->get_finish();
+	std::pair<uint8_t, uint8_t> tmp2 = controller.get_cord();
 	if(tmp1.first == tmp2.first && tmp1.second == tmp2.second) return true;
 	return false;
 }
 
-void Game::start_new(std::string name, int lvl){
+void Game::start_new(std::string name){
 	uint8_t hp = MIN_HEALTH + std::rand()%(MAX_HEALTH-MIN_HEALTH);
-	delete this->player;
-	player = new Player{name, hp};
-	delete this->controller;
-	controller = new Controller();
-	if(lvl%2){
-		gen.generate_lvl1(*controller, *player);
-	}else{
-		gen.generate_lvl2(*controller, *player);
-	}
+	player = Player(name, hp);
+	controller = Controller();
+	gen.generate_lvl(controller, player);
 	std::cout << "new!" << std::endl;
-	std::cout << "You are " << player->get_name() << " hp: " << (int)player->get_max_health() << '\n';
+	std::cout << "You are " << player.get_name() << " hp: " << (int)player.get_max_health() << '\n';
 	std::cout << "YOUR FIELD :\n";
-	controller->prt();
-}
-void Game::end_programm(){
-	exit(1);
+	controller.prt();
 }
 
 int Game::run(){
-	char c;
+	char c = '2';
 	std::string new_name;
 	int lvl;
-	controller->prt2();
-	GameMover* tmp;
-	while(c != 'z' && !this->is_finish() && this->is_alive() && c != EOF){
-		c = read->key_operator();
+	controller.prt2();
+	while(c != 'q' && !this->is_finish() && this->is_alive()){
+		c = read.key_operator();
 		switch(c){
 			case 'w':
-				controller->move(up);
-				player->print();
-				controller->prt2();
+				std::cout << "there is no turning back!\n";
+				//controller.move(up);
+				player.print();
+				controller.prt2();
 				break;
 			case 'd':
-				controller->move(right);
-				player->print();
-				controller->prt2();
+				controller.move(right);
+				player.print();
+				controller.prt2();
 				break;
 			case 's':
-				controller->move(down);
-				player->print();
-				controller->prt2();
+				controller.move(down);
+				player.print();
+				controller.prt2();
 				break;
 			case 'a':
-				controller->move(left);
-				player->print();
-				controller->prt2();
-				break;
-			case 'q':
-				this->end_programm();
+				controller.move(left);
+				player.print();
+				controller.prt2();
 				break;
 			case 'e':
 				std::cout << "Введите новое имя: ";
 				std::cin >> new_name;
 				std::cout << '\n';
-				std::cout << "Введите новый уровень: ";
-				std::cin >> lvl;
-				std::cout << '\n';
-				this->start_new(new_name, lvl);
-				break;
-			case 'm':
-				this->change_stream();
+				this->start_new(new_name);
 				break;
 			default:
 				break;
@@ -107,7 +82,7 @@ int Game::run(){
 	return 0;
 
 }
-
+/*
 void Game::change_stream(){
 	if(read_ex == nullptr){
 		std::cout << "No extra stream was given.\n";
@@ -116,6 +91,6 @@ void Game::change_stream(){
 		read = read_ex;
 		read_ex = tmp;
 	}
-}
+}*/
 
 

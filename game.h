@@ -1,25 +1,22 @@
 #include "controller.h"
 #include "fieldgenerator.h"
-#include "gamemover.h"
+#include "stream.h"
 #ifndef GAME
 #define GAME
 
 class Game{
 private:
-	Controller* controller;
-	Player* player;
+	Controller controller;
+	Player player;
 	FieldGenerator gen;
-	GameMover* read;
-	GameMover* read_ex;
+	Stream read;
 public:
-	Game(GameMover* rd, std::string name = "Noname", int lvl = 0, GameMover* rd_ex = nullptr);
-	void start_new(std::string name = "Noname", int lvl = 0);
-	void end_programm();
-	void change_stream();
+	Game(std::string name = "Noname", std::string path = "");
+	void start_new(std::string name = "Noname");
+	//void change_stream();
 	int run(); //exit, new game, end
 	bool is_alive();
 	bool is_finish();
-	~Game();
 };
 
 #endif

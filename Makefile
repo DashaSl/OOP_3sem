@@ -1,7 +1,7 @@
 all: MyGame
 
-MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o gamemover.o filestream.o
-	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o gamemover.o filestream.o -o MyGame
+MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o
+	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o -o MyGame
 main.o: main.cpp controller.h player.h cell.h field.h
 	g++ -c main.cpp
 controller.o: controller.cpp controller.h player.h field.h
@@ -24,11 +24,11 @@ fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h
 	g++ -c fieldgenerator.cpp
 game.o: game.cpp game.h
 	g++ -c game.cpp
-gamemover.o: gamemover.cpp gamemover.h
-	g++ -c gamemover.cpp
 stream.o: stream.cpp stream.h
 	g++ -c stream.cpp
-filestream.o: filestream.cpp FileStream.h
-	g++ -c filestream.cpp
+filereader.o: filereader.cpp filereader.h
+	g++ -c filereader.cpp
+read.o: read.h read.cpp
+	g++ -c read.cpp
 clean:
 	rm -rf *.o MyGame

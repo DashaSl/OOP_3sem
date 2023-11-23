@@ -1,7 +1,7 @@
 #include "event.h"
 #ifndef BEVE
 #define BEVE
-#define SUB_HEALTH -20
+#define SUB_HEALTH -40
 
 class BadEvent : public Event{
 private:
