@@ -36,14 +36,12 @@ bool Controller::move(Move_constant way){
 	int8_t tmp = 0;
     if(way%2){
         if(cord[1] + way + 1> this->height || cord[1] + way < 0){
-            std::cout<<"You can't go further on Y cord!" << std::endl;
             return false;
         }
         cord[1] += way;
     }else{
         tmp = way - 1;
         if(cord[0] + tmp + 1 > this->width || cord[0] + tmp < 0){
-            std::cout<<"You can't go further on X cord!" << std::endl;
             return false;
         }
         cord[0] += tmp;
@@ -55,7 +53,6 @@ bool Controller::move(Move_constant way){
     	this->event_check();
     	return true;
     }
-    std::cout << "this cell is not passable!" << std::endl;
     if(way%2){
     	cord[1] -= way;
     }else{
@@ -112,6 +109,9 @@ void Controller::prt2(){
 	std::cout << '\n';
 }
 
+bool Controller::check_through_cell(int x, int y){
+	return this->field->get_cell(std::make_pair(x, y)).get_is_go_through();
+}
 
 void Controller::change_field(Field* fld){
 	if(this->field != nullptr){

@@ -12,3 +12,7 @@ Event* GoodEvent::clone(){
 void GoodEvent::event_happens(){
 	player.change_score(ADD_SCORE);
 }
+std::string GoodEvent::to_string(){
+	std::string tmp = "good event";
+	return tmp;
+}

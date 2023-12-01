@@ -13,15 +13,15 @@ void Stream::stream_change(std::string path){
 }
 
 
-char Stream::key_operator(){
+Move_constant Stream::key_operator(){
 	Read rd;
 	char c = rd.read(); //may change depending on stream
-	if(c == up_) return 'w';
-	if(c == down_) return 's';
-	if(c == left_) return 'a';
-	if(c == right_) return 'd';
-	if(c == exit_) return 'q';
-	if(c == new_) return 'e';
-	return '\n'; //just random letter to ignore
+	if(c == up_) return up;
+	if(c == down_) return down;
+	if(c == left_) return left;
+	if(c == right_) return right;
+	if(c == exit_) return quit;
+	if(c == new_) return news;
+	return no; //just random letter to ignore
 }
 

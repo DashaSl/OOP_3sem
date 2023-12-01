@@ -2,7 +2,7 @@
 #define OOP_3SEM_PROJECT_CONTROLLER_2_H
 #include "player.h"
 #include "field.h"
-enum Move_constant {up = -1, left, down , right}; // down - 1, up - -1, left - 0 (-1), right 2 (-1)
+enum Move_constant {up = -1, left, down , right, quit, news, no}; // down - 1, up - -1, left - 0 (-1), right 2 (-1)
 
 class Controller{
 private:
@@ -23,6 +23,7 @@ public:
 	std::pair<uint8_t, uint8_t> get_cord();
 	void prt();
 	void prt2();
+	bool check_through_cell(int x, int y);
 	void change_field(Field* fld);
 };
 

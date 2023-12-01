@@ -1,33 +1,21 @@
-
-#include "game.h"
-#include "stream.h"
-int main(){
-
+#include "gamestalker.h"
+int main(int argc, char* argv[]){
 	std::srand(time(0));
-
-	FileReader flrd = FileReader("config1.txt");
-	std::map <std::string, char> mapa= flrd.get_keys();
-	for (const auto& [action, key] : mapa)
-	        std::cout << action << "\t" << key << std::endl;
-	FileReader flrd2 = FileReader("config2.txt");
-	std::cout << "\nConfig with errors\n";
-	mapa = flrd2.get_keys();
-	for (const auto& [action, key] : mapa)
-		        std::cout << action << "\t" << key << std::endl;
-
-	std::cout << "\nTest stream\n";
-	/*
-	Stream strm;
-	strm.stream_change("config1.txt");
-
-	char tmp;
-	while(tmp != 'q'){
-		tmp = strm.key_operator();
-		std::cout << tmp << " ";
-	}*/
-	std::cout << "\n\nGame test\n";
-	Game game1 = Game("Pyotr", "config1.txt");
-	game1.run();
+	Stream rd;
+	if(argc > 2){
+		std::cout << "Too many arguments! only first one will count!\n";
+	}else if(argc > 1){
+		std::string tmp_string = argv[1];
+		rd.stream_change(tmp_string);
+		std::cout << "Configuration "<<tmp_string << " was chosen\n";
+	}
+	Game gm = Game(rd, "Popa");
+	std::cout << "starting game\n";
+	Drawer dr;
+	GameStalker gmstkr = GameStalker(gm, dr);
+	gmstkr.prt_info();
+	gm.run(gmstkr);
 	std::cout << "Programm finished!\n";
+	gmstkr.prt_info();
 	return 0;
 }

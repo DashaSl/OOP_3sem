@@ -29,3 +29,8 @@ void TeleportEvent::event_happens(){
 		}
 	}
 }
+
+std::string TeleportEvent::to_string(){
+	std::string tmp = "teleport event";
+	return tmp;
+}

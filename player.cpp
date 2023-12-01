@@ -29,6 +29,18 @@ void Player::change_health(int change){
     }
 };
 
+
+void Player::change_health_val(uint8_t change){
+	if(change > max_health){
+		health = max_health;
+	}else{
+		health = change;
+	}
+}
+void Player::change_score_val(uint16_t change){
+	score = change;
+}
+
 void Player::change_score(uint16_t change){
     score += change;
 };

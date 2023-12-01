@@ -11,5 +11,6 @@ public:
 	Event* clone();
 	int type();
 	void event_happens() override;
+	std::string to_string() override;
 };
 #endif

@@ -12,3 +12,8 @@ Event* BadEvent::clone(){
 void BadEvent::event_happens(){
 	player.change_health(SUB_HEALTH);
 }
+
+std::string BadEvent::to_string(){
+	std::string tmp = "bad event";
+	return tmp;
+}

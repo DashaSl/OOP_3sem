@@ -23,7 +23,9 @@ private: //характеристики
 public:
     //сеттеры
     void change_health(int change);
+    void change_health_val(uint8_t change);
     void change_score(uint16_t change);
+    void change_score_val(uint16_t change);
     void change_max_health(uint8_t new_max_health);
     void change_name(std::string new_name);
 
