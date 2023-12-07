@@ -11,12 +11,13 @@ private:
 	Controller controller;
 	Player player;
 	FieldGenerator gen;
-	Stream& read;
+	Stream& config;
+	Read& read;
 	int level;
 	uint8_t beg_level_health;
 	uint16_t beg_level_score;
 public:
-	Game(Stream& rd, std::string name = "Noname");
+	Game(Stream& conf, Read& rd, std::string name = "Noname");
 	void start_new(std::string name = "Noname");
 	//void change_stream();
 	int run(GameStalker& gmstkr); //exit, new game, end

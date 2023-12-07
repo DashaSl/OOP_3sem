@@ -1,7 +1,7 @@
 all: MyGame
 
-MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o
-	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o -o MyGame
+MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o
+	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o -o MyGame
 main.o: main.cpp controller.h player.h cell.h field.h
 	g++ -c main.cpp
 controller.o: controller.cpp controller.h player.h field.h
@@ -34,5 +34,22 @@ gamestalker.o: gamestalker.h gamestalker.cpp game.h fieldgenerator.h drawer.h
 	g++ -c gamestalker.cpp
 drawer.o: drawer.h
 	g++ -c drawer.cpp
+eventmessage.o: eventmessage.cpp eventmessage.h 
+	g++ -c eventmessage.cpp
+evemeswin.o: evemeswin.h evemeswin.cpp eventmessage.h player.h
+	g++ -c evemeswin.cpp
+evemesdead.o: eventmessage.h evemesdead.h evemesdead.cpp controller.h
+	g++ -c evemesdead.cpp
+evemesnew.o: eventmessage.h evemesnew.cpp evemesnew.h controller.h
+	g++ -c evemesnew.cpp
+evemesmove.o: eventmessage.h evemesmove.cpp evemesmove.h controller.h 
+	g++ -c evemesmove.cpp
+evemesfailmove.o: eventmessage.h evemesfailmove.cpp evemesfailmove.h controller.h
+	g++ -c evemesfailmove.cpp
+messagesend.o: messagesend.cpp messagesend.h filewriter.h
+	g++ -c messagesend.cpp
+filewriter.o: filewriter.cpp filewriter.h
+	g++ -c filewriter.cpp	
+	
 clean:
 	rm -rf *.o MyGame

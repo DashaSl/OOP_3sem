@@ -14,7 +14,7 @@ private:
 	char new_ = 'e';
 public:
 	void stream_change(std::string path);
-	Move_constant key_operator();
+	Move_constant key_operator(char c);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "game.h"
 #include "gamestalker.h"
-Game::Game(Stream& rd, std::string name): read(rd){
+Game::Game(Stream& conf, Read& rd, std::string name): config(conf), read(rd){
 	level = 1;
 	uint8_t hp = MIN_HEALTH + std::rand()%(MAX_HEALTH-MIN_HEALTH);
 	player = Player(name, hp);
@@ -30,6 +30,7 @@ void Game::start_new(std::string name){
 	player.change_max_health(hp);
 	gen.generate_lvl(controller, player);
 	level = 1;
+	player.change_score_val(0);
 }
 
 void Game::restore_game(){
@@ -47,12 +48,13 @@ int Game::run(GameStalker& gmstkr){
 	controller.prt2();
 	bool not_finish_of_lvl_2 = true;
 	std::string ans_from_stalker = "";
-
+	char symbol = '\0';
 	end_of_cycle endofcyc = nothing_new;
 
 	while(c != quit && not_finish_of_lvl_2 && this->is_alive()){
-		c = read.key_operator();
-		ans_from_stalker = gmstkr.start_info(c);
+		symbol = read.read();
+		c = config.key_operator(symbol);
+		ans_from_stalker = gmstkr.start_info(c, symbol);
 		endofcyc = nothing_new;
 		switch(c){
 			case up:

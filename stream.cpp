@@ -13,9 +13,7 @@ void Stream::stream_change(std::string path){
 }
 
 
-Move_constant Stream::key_operator(){
-	Read rd;
-	char c = rd.read(); //may change depending on stream
+Move_constant Stream::key_operator(char c){
 	if(c == up_) return up;
 	if(c == down_) return down;
 	if(c == left_) return left;
