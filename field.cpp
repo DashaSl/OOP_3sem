@@ -1,5 +1,6 @@
 #include "field.h"
 
+
 std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord, uint8_t flag){
 	//flag 0 - ширина и высотаб 1 - начало или  2 - конец
 	if(flag == 1){
@@ -25,6 +26,7 @@ std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord,
 }
 
 Field::Field(std::pair<uint8_t, uint8_t> wid_hei, std::pair<uint8_t, uint8_t> beg, std::pair<uint8_t, uint8_t> fin){
+	enemies = {};
 	wid_hei = this->check_cords(wid_hei, 0);
 	width = wid_hei.first;
 	height = wid_hei.second;
@@ -158,4 +160,7 @@ Field& Field::operator =(Field&& fld){
 	return *this;
 }
 
+void Field::add_enemy(BaseEnemy* enemy){
+	enemies.push_back(enemy);
+}
 

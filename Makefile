@@ -1,7 +1,7 @@
 all: MyGame
 
-MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o
-	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o -o MyGame
+MyGame: main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o enemy.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o
+	g++ main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o enemy.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o -o MyGame
 main.o: main.cpp controller.h player.h cell.h field.h
 	g++ -c main.cpp
 controller.o: controller.cpp controller.h player.h field.h
@@ -48,8 +48,25 @@ evemesfailmove.o: eventmessage.h evemesfailmove.cpp evemesfailmove.h controller.
 	g++ -c evemesfailmove.cpp
 messagesend.o: messagesend.cpp messagesend.h filewriter.h
 	g++ -c messagesend.cpp
-filewriter.o: filewriter.cpp filewriter.h
+filewriter.o: filewriter.cpp filewriter.h streamwriterinterface.h
 	g++ -c filewriter.cpp	
+terminalwriter.o: terminalwriter.cpp terminalwriter.h streamwriterinterface.h
+	g++ -c terminalwriter.cpp
+streamwriterinterface.o: streamwriterinterface.h streamwriterinterface.cpp
+	g++ -c streamwriterinterface.cpp
+enemy.o: enemy.h enemy.cpp
+	g++ -c enemy.cpp
+movementstalker.o: movementstalker.h movementstalker.cpp
+	g++ -c movementstalker.cpp
+movementrandom.o: movementrandom.h movementrandom.cpp
+	g++ -c movementrandom.cpp
+interactionteleport.o: interactionteleport.h interactionteleport.cpp
+	g++ -c interactionteleport.cpp
+interactionhp.o: interactionhp.h interactionhp.cpp
+	g++ -c interactionhp.cpp
 	
 clean:
 	rm -rf *.o MyGame
+
+	
+	

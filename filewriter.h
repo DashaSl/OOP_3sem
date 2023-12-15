@@ -1,15 +1,12 @@
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-#include "eventmessage.h"
+#include "streamwriterinterface.h"
 #ifndef FILE_WRT
 #define FILE_WRT
-class FileWriter{
+class FileWriter : public StreamWriterInterface{
 private:
 	std::ofstream file;
 public:
 	FileWriter(std::string path);
-	void write(EventMessage& mes);
-	~FileWriter();
+	void write(EventMessage& mes) override;
+	~FileWriter() override;
 };
 #endif

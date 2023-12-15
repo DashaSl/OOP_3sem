@@ -110,6 +110,7 @@ void Controller::prt2(){
 }
 
 bool Controller::check_through_cell(int x, int y){
+	if(x < 0 || x >= width || y >= height || y < 0) return false;
 	return this->field->get_cell(std::make_pair(x, y)).get_is_go_through();
 }
 

@@ -1,18 +1,20 @@
+#include "enemy.h"
+#include "cell.h"
 #ifndef FIELD
 #define FIELD
-#include "cell.h"
 #define MAX_WID 50
 #define MAX_HEI 50
 #define MID_HEI 30
 #define MID_WID 30
 #define MIN_HEI 2
 #define MIN_WID 2
-
+#include <vector>
 class Field{
 private:
 	Cell** field;
 	uint8_t width, height;
 	std::pair<uint8_t, uint8_t> start, finish;
+	std::vector<BaseEnemy*> enemies;
 public:
 
 	Field(std::pair<uint8_t, uint8_t> wid_hei = std::make_pair((uint8_t)30, (uint8_t)30), std::pair<uint8_t, uint8_t> beg = std::make_pair((uint8_t)0, (uint8_t)0), std::pair<uint8_t, uint8_t> fin = std::make_pair((uint8_t)1, (uint8_t)1));
@@ -31,7 +33,7 @@ public:
 	Field(Field&& other);
 	Field& operator = (Field&& other);
 
-
+	void add_enemy(BaseEnemy* enemy);
 
 };
 

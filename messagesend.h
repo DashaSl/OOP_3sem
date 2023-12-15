@@ -1,17 +1,15 @@
 #include "filewriter.h"
-
-
+#include "terminalwriter.h"
+#include <set>
 #ifndef MES_SEND
 #define MES_SEND
 
 class MessageSend{
-	FileWriter* flwr;
-	bool term_out;
-	bool file_out;
+private:
+	std::set<StreamWriterInterface*>& write_set;
 public:
-	MessageSend(bool terminal_output, bool file_output, std::string name = "untitled.txt");
+	MessageSend(std::set<StreamWriterInterface*>& wrt);
 	void output_message(EventMessage& mes);
-	~MessageSend();
 };
 
 

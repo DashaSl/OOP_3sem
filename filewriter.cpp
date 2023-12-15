@@ -9,5 +9,6 @@ void FileWriter::write(EventMessage& mes){
 }
 
 FileWriter::~FileWriter(){
+	std::cout << "FILE CLOSED!\n";
 	file.close();
 }
