@@ -2,21 +2,25 @@
 #include "movementrandom.h"
 #include "interactionteleport.h"
 #include "interactionhp.h"
-#include "BaseEnemy.h"
 #ifndef ENEMY
 #define ENEMY
-template <typename MoveScheme, typename InteractScheme>
-class Enemy : public BaseEnemy{
+class Controller;
+class Player;
+
+template <class MoveScheme, class InteractScheme>
+class Enemy{
 private:
 	std::pair<uint8_t, uint8_t> cur_cord;
 	Player& player;
 	Controller& controller;
+	MoveScheme M;
+	InteractScheme I;
 public:
-	Enemy<MoveScheme, InteractScheme>(std::pair<uint8_t, uint8_t> cur_cord, Player& plr, Controller& cont);
-	std::pair<uint8_t, uint8_t> get_cord() override;
-	void move() override;
-	void interact() override;
-	bool is_player_reached() override;
+	Enemy(std::pair<uint8_t, uint8_t> cur_cord, Player& plr, Controller& cont, MoveScheme M, InteractScheme I);
+	std::pair<uint8_t, uint8_t> get_cord();
+	void move();
+	void interact();
+	bool is_player_reached();
 
 };
 #endif

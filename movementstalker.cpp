@@ -1,4 +1,6 @@
 #include "movementstalker.h"
+#include "controller.h"
+MovementStalker::MovementStalker(){}
 
 std::pair<uint8_t, uint8_t> MovementStalker::move(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord){
 	std::pair<uint8_t, uint8_t> player_cord = cont.get_cord();

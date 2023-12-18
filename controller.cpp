@@ -33,6 +33,10 @@ bool Controller::event_check(){
 
 bool Controller::move(Move_constant way){
 	if(field == nullptr) return false;
+
+	//field->move_inter_enemy(cord[0], cord[1]);
+
+
 	int8_t tmp = 0;
     if(way%2){
         if(cord[1] + way + 1> this->height || cord[1] + way < 0){

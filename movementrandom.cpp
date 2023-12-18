@@ -1,4 +1,6 @@
 #include "movementrandom.h"
+#include "controller.h"
+MovementRandom::MovementRandom(){}
 
 int8_t MovementRandom::ret_neg_pos(){
 	int8_t ans = std::rand() % 2;

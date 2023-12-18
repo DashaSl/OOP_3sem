@@ -21,7 +21,9 @@ void Drawer::draw(Controller& cont, Player& plr){
 			for(int j = 0; j < width; j++){
 				if(i == y_player && j == x_player){
 					std::cout << "@@";
-				}else{
+				}else /*if(cont.get_field()->check_enemy(j, i)){
+					std::cout << "XX";
+				}else*/{
 					if(cont.check_through_cell(j, i)){
 						std::cout << "  ";
 					}else{

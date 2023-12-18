@@ -1,5 +1,6 @@
 #include "interactionteleport.h"
-
+#include "controller.h"
+InteractionTeleport::InteractionTeleport(){}
 
 std::pair<uint8_t, uint8_t> InteractionTeleport::get_random_cell(Controller& cont){
 	uint8_t height = cont.get_height();

@@ -67,6 +67,8 @@ int main(int argc, char* argv[]){
 	messend.output_message(emn);
 	messend.output_message(emfm);
 	std::cout << emd << emw << emn << emm << emfm;*/
+	std::pair<uint8_t, uint8_t> abbaa = std::make_pair(23, 23);
+	//Enemy bob = Enemy(abbaa, gm.get_player(), gm.get_controller(), MovementStalker(), InteractionTeleport());
 	std::cout << "Program finished!\n";
 	return 0;
 }

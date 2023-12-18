@@ -21,12 +21,11 @@ std::pair<uint8_t, uint8_t> Field::check_cords(std::pair<uint8_t, uint8_t> cord,
 
 	if(cord.first > MAX_WID || cord.first < MIN_WID) cord.first = MID_WID;
 	if(cord.second > MAX_HEI || cord.second < MIN_HEI) cord.second = MID_HEI;
-
 	return cord;
 }
 
 Field::Field(std::pair<uint8_t, uint8_t> wid_hei, std::pair<uint8_t, uint8_t> beg, std::pair<uint8_t, uint8_t> fin){
-	enemies = {};
+
 	wid_hei = this->check_cords(wid_hei, 0);
 	width = wid_hei.first;
 	height = wid_hei.second;
@@ -78,7 +77,10 @@ Field::~Field(){
 			delete [] field[i];
 		}
 		delete [] field;
-	}
+	}/*
+	for(BaseEnemy* enemy: enemies){
+		delete enemy;
+	}*/
 }
 
 uint8_t Field::get_width(){
@@ -159,8 +161,27 @@ Field& Field::operator =(Field&& fld){
 	fld.field = nullptr;
 	return *this;
 }
-
+/*
 void Field::add_enemy(BaseEnemy* enemy){
 	enemies.push_back(enemy);
 }
+
+void Field::move_inter_enemy(uint8_t x, uint8_t y){
+	for(BaseEnemy* enemy: enemies){
+		if(enemy->is_player_reached()) enemy->interact();
+		enemy->move();
+	}
+}
+
+bool Field::check_enemy(uint8_t x, uint8_t y){
+	std::pair<uint8_t, uint8_t> checking;
+	checking.first = x;
+	checking.second = y;
+	for(BaseEnemy* enemy: enemies){
+		if(enemy->get_cord() == checking) return true;
+	}
+	return false;
+}
+
+*/
 

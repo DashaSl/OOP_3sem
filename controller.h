@@ -2,6 +2,7 @@
 #define OOP_3SEM_PROJECT_CONTROLLER_2_H
 #include "player.h"
 #include "field.h"
+#include "enemy.h"
 enum Move_constant {up = -1, left, down , right, quit, news, no}; // down - 1, up - -1, left - 0 (-1), right 2 (-1)
 
 class Controller{

@@ -37,10 +37,19 @@ void FieldGenerator::generate_lvl(Controller& cont, Player& plr){
 		ans->get_cell(std::make_pair(noeve_ind, y)).change_is_go_through(true);
 	}
 	eve = nullptr;
+	std::pair<uint8_t, uint8_t> cord_enem1 = std::make_pair(10, 6);
+	std::pair<uint8_t, uint8_t> cord_enem2 = std::make_pair(5, 8);
+	char c = 's';
+	int a = 23;
+	//Enemy<int, char> bob = Enemy(cord_enem1, plr, cont, a, c);
+	//BaseEnemy* enem1 = new Enemy<MovementRandom, InteractionTeleport>(cord_enem1, plr, cont);
+	//BaseEnemy* enem2 = new Enemy<MovementStalker, InteractionHp>(cord_enem2, plr, cont);
+	//ans->add_enemy(enem1);
+	//ans->add_enemy(enem2);
 	cont.change_field(ans);
 	ans = nullptr;
 }
-
+//стирание типов в c++ ||убрать BaseEnemy
 void FieldGenerator::generate_lvl2(Controller& cont, Player& plr){
 	Field* ans = new Field{std::make_pair(LVL2_W,LVL2_H), std::make_pair(0, 0), std::make_pair(LVL2_W - 1, LVL2_H - 1)};
 	Event* eve;

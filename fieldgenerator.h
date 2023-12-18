@@ -1,4 +1,5 @@
 #include "field.h"
+
 #ifndef FLD_GEN
 #define FLD_GEN
 #define LVL1_W 20
