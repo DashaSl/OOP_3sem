@@ -1,5 +1,6 @@
 #include "fieldgenerator.h"
 #include "controller.h"
+#include "enemy.h"
 
 void FieldGenerator::generate_lvl(Controller& cont, Player& plr){
 	Field* ans = new Field{std::make_pair(LVL1_W,LVL1_H), std::make_pair(0, 0), std::make_pair(LVL1_W - 1, LVL1_H - 1)};
@@ -37,15 +38,12 @@ void FieldGenerator::generate_lvl(Controller& cont, Player& plr){
 		ans->get_cell(std::make_pair(noeve_ind, y)).change_is_go_through(true);
 	}
 	eve = nullptr;
-	std::pair<uint8_t, uint8_t> cord_enem1 = std::make_pair(10, 6);
-	std::pair<uint8_t, uint8_t> cord_enem2 = std::make_pair(5, 8);
-	char c = 's';
-	int a = 23;
-	//Enemy<int, char> bob = Enemy(cord_enem1, plr, cont, a, c);
-	//BaseEnemy* enem1 = new Enemy<MovementRandom, InteractionTeleport>(cord_enem1, plr, cont);
-	//BaseEnemy* enem2 = new Enemy<MovementStalker, InteractionHp>(cord_enem2, plr, cont);
-	//ans->add_enemy(enem1);
-	//ans->add_enemy(enem2);
+	std::pair<uint8_t, uint8_t> cord_enem1 = std::make_pair(7, 7);
+	std::pair<uint8_t, uint8_t> cord_enem2 = std::make_pair(3, 8);
+	BaseEnemy* enem1 = new Enemy(cord_enem1, plr, cont, MovementRandom(), InteractionHp());
+	BaseEnemy* enem2 = new Enemy(cord_enem2, plr, cont, MovementStalker(),  InteractionTeleport());
+	ans->add_enemy(enem1);
+	ans->add_enemy(enem2);
 	cont.change_field(ans);
 	ans = nullptr;
 }
@@ -86,6 +84,18 @@ void FieldGenerator::generate_lvl2(Controller& cont, Player& plr){
 		ans->get_cell(std::make_pair(noeve_ind, y)).change_is_go_through(true);
 	}
 	eve = nullptr;
+	std::pair<uint8_t, uint8_t> cord_enem1 = std::make_pair(7, 14);
+	std::pair<uint8_t, uint8_t> cord_enem2 = std::make_pair(3, 8);
+	std::pair<uint8_t, uint8_t> cord_enem3 = std::make_pair(13, 2);
+	std::pair<uint8_t, uint8_t> cord_enem4 = std::make_pair(1, 18);
+	BaseEnemy* enem1 = new Enemy(cord_enem1, plr, cont, MovementRandom(), InteractionHp());
+	BaseEnemy* enem2 = new Enemy(cord_enem2, plr, cont, MovementStalker(),  InteractionTeleport());
+	BaseEnemy* enem3 = new Enemy(cord_enem3, plr, cont, MovementRandom(), InteractionTeleport());
+	BaseEnemy* enem4 = new Enemy(cord_enem4, plr, cont, MovementStalker(),  InteractionHp());
+	ans->add_enemy(enem1);
+	ans->add_enemy(enem2);
+	ans->add_enemy(enem3);
+	ans->add_enemy(enem4);
 	cont.change_field(ans);
 	ans = nullptr;
 }

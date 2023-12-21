@@ -1,4 +1,4 @@
-#include "enemy.h"
+
 #include "cell.h"
 #ifndef FIELD
 #define FIELD
@@ -9,11 +9,15 @@
 #define MIN_HEI 2
 #define MIN_WID 2
 #include <vector>
+#include <variant>
+#include <any>
+#include "enemy.h"
 class Field{
 private:
 	Cell** field;
 	uint8_t width, height;
 	std::pair<uint8_t, uint8_t> start, finish;
+	std::vector<BaseEnemy*> enemies;
 public:
 
 	Field(std::pair<uint8_t, uint8_t> wid_hei = std::make_pair((uint8_t)30, (uint8_t)30), std::pair<uint8_t, uint8_t> beg = std::make_pair((uint8_t)0, (uint8_t)0), std::pair<uint8_t, uint8_t> fin = std::make_pair((uint8_t)1, (uint8_t)1));
@@ -32,9 +36,9 @@ public:
 	Field(Field&& other);
 	Field& operator = (Field&& other);
 
-	//void add_enemy(BaseEnemy* enemy);
-	//void move_inter_enemy(uint8_t x, uint8_t y);
-	//bool check_enemy(uint8_t x, uint8_t y);
+	void add_enemy(BaseEnemy* enemy);
+	void move_inter_enemy(uint8_t x, uint8_t y) const;
+	bool check_enemy(uint8_t x, uint8_t y) const;
 };
 
 #endif

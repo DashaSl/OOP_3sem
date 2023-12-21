@@ -34,8 +34,6 @@ bool Controller::event_check(){
 bool Controller::move(Move_constant way){
 	if(field == nullptr) return false;
 
-	//field->move_inter_enemy(cord[0], cord[1]);
-
 
 	int8_t tmp = 0;
     if(way%2){
@@ -63,6 +61,11 @@ bool Controller::move(Move_constant way){
     	cord[0] -= tmp;
     }
     return false;
+}
+
+
+void Controller::move_enemy(){
+	field->move_inter_enemy(cord[0], cord[1]);
 }
 
 Field* Controller::get_field(){

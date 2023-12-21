@@ -202,7 +202,7 @@ void GameStalker::get_info(Move_constant c, end_of_cycle eoc){
 
 void GameStalker::prt_info(){
 	std::cout << "You are " << player_name << "\n";
-	std::cout << "Max health: " <<(int) max_health << "Currient health: " <<(int) cur_health << "\n";
+	std::cout << "Max health: " <<(int) max_health << "Current health: " <<(int) cur_health << "\n";
 	std::cout << "Yours score: " << (int) cur_score << "\n";
 
 	std::cout << "You are at level " << cur_level << "\n";

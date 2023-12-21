@@ -3,65 +3,69 @@
 MovementStalker::MovementStalker(){}
 
 std::pair<uint8_t, uint8_t> MovementStalker::move(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord){
+	/*
+	 1)Достаём координаты игрока
+	 0)Если наши координаты равны - идём в другое место
+
+	 2)Если мы на одном уровне (у равны), то
+	 если это не стена - двигаемся к игроку
+	 если стена - двигаемся вниз (т.к. игрок всегда идёт вниз)
+	 3)На разных уровнях
+	 3.1)Разобраться - идти наверх или вниз
+	 Если есть возможность двигаться в нужном направлении - идём туда
+	 4.2)Иначе вычисляем ближайшую дверь в ряду, - двигаемся к ней
+	 */
 	std::pair<uint8_t, uint8_t> player_cord = cont.get_cord();
-	int8_t x = cur_cord.first;
-	int8_t y = cur_cord.second;
+
 	if(player_cord == cur_cord){
-		return this->get_random_cell(cont);
+		return cur_cord;
 	}
-	int8_t diff_x = x - player_cord.first; //diff < 0 => player is on right => need to add 1 ||| else add -1
-	int8_t diff_y = y - player_cord.second; //diff < 0  => player is lower => need to add 1 ||| else add -1  || CASE == 0 => on same line! ||if abs(diff) == 1 in closest wall
 
-	std::pair<uint8_t, uint8_t> ans;
-	ans.first = x;
-	ans.second = y;
-
-	if(y == 0){ //diff_x != 0 'cause obvious
-		if(this->check_is_wall(cont, cur_cord)){ //we are on the wall
-			y += 1;//go down, cause player always goes down
-			ans.second = y;
-			if(cont.check_through_cell(x, y)) return ans;
+	if(player_cord.second == cur_cord.second){
+		bool is_wall = cur_cord.second%2;
+		//все стены на нечётных рядах
+		if(is_wall){
+			cur_cord.second = cur_cord.second - 1;
 			return cur_cord;
-		}
-		if(diff_x > 0){
-			x -= 1;
-		}else if(diff_x < 0){
-			x += 1;
-		}
-		ans.first = x;
-		if(cont.check_through_cell(x, y)) return ans;
-		return cur_cord;
-	}
-
-	uint8_t closest_door;
-
-	if(diff_y > 0){
-		y -= 1;
-		closest_door = this->calc_closest_door(cont, cur_cord, -1);
-	}else{
-		y += 1;
-		closest_door = this->calc_closest_door(cont, cur_cord, 1);
-	}
-
-	diff_x = x - closest_door;
-	if(diff_x == 0){
-		if(diff_y > 0){
-			y -= 1;
+			//здесь может возникнуть вопрос - а вдруг там стена! - но нет, тог да мы бы не были с игроком на одном уровни (стены чередуются с проходами)
 		}else{
-			y += 1;
+			int8_t diff = (int8_t)cur_cord.first - (int8_t)player_cord.first; //  @@   XX -> diff > 0 ->
+			if(diff > 0){
+				cur_cord.first = cur_cord.first - 1;
+				return cur_cord;
+			}else{
+				cur_cord.first = cur_cord.first + 1;
+				return cur_cord;
+			}
 		}
-		ans.second = y;
-		if(cont.check_through_cell(x, y)) return ans;
+	}
+
+	//Мы на разных уровнях
+	int8_t y_diff = (int)cur_cord.second - (int)player_cord.second;
+	int8_t add;
+	if(y_diff > 0){
+		add = -1;
+	}else{
+		add = 1;
+	}
+
+	if(	cont.check_through_cell(cur_cord.first, cur_cord.second + add)	){
+		cur_cord.second = cur_cord.second + add;
 		return cur_cord;
 	}
 
-	if(diff_x < 0){
-		x += 1;
+
+	int8_t closest_door = calc_closest_door(cont, cur_cord.first, cur_cord.second + add);
+
+	int8_t x_diff = (int)cur_cord.first - closest_door;
+
+	if(x_diff > 0){
+		add = -1;
 	}else{
-		x -= 1;
+		add = 1;
 	}
-	ans.first = x;
-	if(cont.check_through_cell(x, y)) return ans;
+
+	cur_cord.first = cur_cord.first + add;
 	return cur_cord;
 
 }
@@ -86,50 +90,20 @@ std::pair<uint8_t, uint8_t> MovementStalker::get_random_cell(Controller& cont){
 }
 
 
-bool MovementStalker::check_is_wall(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord){
-	uint8_t width = cont.get_width();
-	uint8_t y = cur_cord.second;
+int8_t MovementStalker::calc_closest_door(Controller& cont, uint8_t x, uint8_t y){
+	int width = cont.get_width();
+	int tmp = width*width;
+	uint8_t ans = x;
 	for(int i = 0; i < width; i++){
-		if(!cont.check_through_cell(i, y)){
-			return true;
-		}
-	}
-	return false;
-}
-
-
-
-
-uint8_t MovementStalker::calc_closest_door(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord, int8_t up_down){
-	int8_t left_x = -1;
-	int8_t right_x = -1;
-	int8_t y = cur_cord.second + up_down;
-	uint8_t width = cont.get_width();
-	int8_t x = cur_cord.first;
-	for(int i = cur_cord.first; i < width; i++){
 		if(cont.check_through_cell(i, y)){
-			right_x = i;
-			break;
+
+			if(tmp > (i - (int)x)*(i - (int)x)){
+				tmp = (i - (int)x)*(i - (int)x);
+				ans = i;
+			}
+
 		}
 	}
-
-	for(int i = cur_cord.first; i >= 0; i--){
-		if(cont.check_through_cell(i, y)){
-			left_x = i;
-			break;
-		}
-	}
-	if(left_x == -1 && right_x == -1){
-		std::cout << "You've f up! (In movementstalker.cpp) \n";
-		return x;
-	}
-	if(left_x == -1) return right_x;
-	if(right_x == -1) return left_x;
-	if((x - left_x) < (right_x - x)){
-		return left_x;
-	}else{
-		return right_x;
-	}
-
+	return ans;
 }
 

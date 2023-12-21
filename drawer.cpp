@@ -20,10 +20,14 @@ void Drawer::draw(Controller& cont, Player& plr){
 			std::cout << "-";
 			for(int j = 0; j < width; j++){
 				if(i == y_player && j == x_player){
-					std::cout << "@@";
-				}else /*if(cont.get_field()->check_enemy(j, i)){
+					if(cont.get_field()->check_enemy(j, i)){
+						std::cout << "@X";
+					}else{
+						std::cout << "@@";
+					}
+				}else if(cont.get_field()->check_enemy(j, i)){
 					std::cout << "XX";
-				}else*/{
+				}else{
 					if(cont.check_through_cell(j, i)){
 						std::cout << "  ";
 					}else{

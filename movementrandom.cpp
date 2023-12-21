@@ -6,35 +6,29 @@ int8_t MovementRandom::ret_neg_pos(){
 	int8_t ans = std::rand() % 2;
 	if(ans) return ans;
 	return -1;
-}
+} // returns either 1 or -1
 
 std::pair<uint8_t, uint8_t> MovementRandom::move(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord){
-	int8_t add_x = this->ret_neg_pos(); //0, 1 -> -1, 1
-	int8_t add_y = this->ret_neg_pos(); //0, 1 -> -1, 1
-	uint8_t variant = std::rand() % 2;
-
-	int8_t x = cur_cord.first;
-	int8_t y = cur_cord.second;
-
-	bool flag = false;
-
-	std::pair<uint8_t, uint8_t> ans;
-
-	ans.first = x;
-	ans.second = y;
-
-	while(!flag){
-		x = ans.first;
-		y = ans.second;
-		if(variant){
-			x += add_x;
+	int8_t add_x;
+	int8_t add_y;
+	bool not_through = true;
+	uint8_t variant_is_x;
+	while(not_through){
+		add_x = this->ret_neg_pos();
+		add_y = this->ret_neg_pos();
+		variant_is_x = std::rand() % 2;
+		if(variant_is_x){
+			not_through = !cont.check_through_cell(cur_cord.first + add_x, cur_cord.second);
+			variant_is_x = false;
 		}else{
-			y += add_y;
+			not_through = !cont.check_through_cell(cur_cord.first, cur_cord.second + add_y);
+			variant_is_x = true;
 		}
-
-		flag = cont.check_through_cell(x, y);
 	}
-	ans.first = x;
-	ans.second = y;
-	return ans;
+	if(!variant_is_x){
+		cur_cord.first = cur_cord.first + add_x;
+	}else{
+		cur_cord.second = cur_cord.second + add_y;
+	}
+	return cur_cord;
 }

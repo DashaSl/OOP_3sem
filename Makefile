@@ -1,7 +1,7 @@
 all: MyGame
 
-MyGame: enemy.o main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o
-	g++ enemy.o main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o fieldgenerator.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o -o MyGame
+MyGame: enemy.o main.o controller.o player.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o fieldgenerator.o
+	g++ enemy.o main.o player.o controller.o cell.o field.o teleportevent.o badevent.o goodevent.o event.o game.o stream.o filereader.o read.o gamestalker.o drawer.o eventmessage.o evemeswin.o evemesdead.o evemesnew.o evemesmove.o evemesfailmove.o filewriter.o messagesend.o terminalwriter.o streamwriterinterface.o movementstalker.o movementrandom.o interactionteleport.o interactionhp.o fieldgenerator.o -o MyGame                                              
 main.o: main.cpp controller.h player.h cell.h field.h enemy.h
 	g++ -c main.cpp
 controller.o: controller.cpp controller.h player.h field.h
@@ -20,8 +20,7 @@ badevent.o: badevent.h badevent.cpp event.h
 	g++ -c badevent.cpp
 goodevent.o: goodevent.h goodevent.cpp event.h
 	g++ -c goodevent.cpp
-fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h controller.h
-	g++ -c fieldgenerator.cpp
+
 game.o: game.cpp game.h controller.h player.h gamestalker.h
 	g++ -c game.cpp
 stream.o: stream.cpp stream.h
@@ -64,6 +63,12 @@ interactionteleport.o: interactionteleport.h interactionteleport.cpp
 	g++ -c interactionteleport.cpp
 interactionhp.o: interactionhp.h interactionhp.cpp
 	g++ -c interactionhp.cpp
+	
+fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h controller.h typeeraser.h typeeraser.cpp
+	g++ -c fieldgenerator.cpp	
+#typeeraser.o: typeeraser.h typeeraser.cpp
+#	g++ -c typeeraser.cpp	
+
 	
 clean:
 	rm -rf *.o MyGame

@@ -70,6 +70,7 @@ int Game::run(GameStalker& gmstkr){
 				break;
 			default:
 				controller.move(c);
+				controller.move_enemy();
 				break;
 		}
 
