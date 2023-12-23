@@ -33,7 +33,10 @@ void Game::start_new(std::string name){
 	player.change_score_val(0);
 }
 
-void Game::restore_game(){
+void Game::restore_game(std::string file_name){
+	level = gen.restore_lvl(file_name, controller, player);
+}
+void Game::save_game(std::string file_name){
 	return;
 }
 
@@ -63,6 +66,13 @@ int Game::run(GameStalker& gmstkr){
 				if(ans_from_stalker == "n") c = no;
 				break;
 			case no:
+				break;
+			case restore:
+				endofcyc = restored_game;
+				this->restore_game(ans_from_stalker);
+				break;
+			case save:
+				this->save_game(ans_from_stalker);
 				break;
 			case news:
 				this->start_new(ans_from_stalker);

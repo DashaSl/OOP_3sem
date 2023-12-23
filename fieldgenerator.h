@@ -11,5 +11,6 @@ class FieldGenerator{
 public:
 	void generate_lvl(Controller& cont, Player& plr);
 	void generate_lvl2(Controller& cont, Player& plr);
+	uint8_t restore_lvl(std::string file_name, Controller& cont, Player& plr);
 };
 #endif

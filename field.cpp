@@ -166,7 +166,7 @@ void Field::add_enemy(BaseEnemy* enemy){
 	enemies.push_back(enemy);
 }
 
-void Field::move_inter_enemy(uint8_t x, uint8_t y) const {
+void Field::move_inter_enemy() const {
 	for(const auto& enemy: enemies){
 		enemy->move();
 		if(enemy->is_player_reached()) enemy->interact();

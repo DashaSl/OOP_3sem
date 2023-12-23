@@ -6,11 +6,11 @@ FileReader::FileReader(std::string path){
 std::map<std::string, char> FileReader::get_keys(){
 	std::map<std::string, char> mapa //used if error occurred
 	{
-		{"up", 'w'}, {"right", 'd'}, {"down", 's'}, {"left", 'a'}, {"exit", 'q'}, {"new", 'e'}
+		{"up", 'w'}, {"right", 'd'}, {"down", 's'}, {"left", 'a'}, {"exit", 'q'}, {"new", 'e'}, {"restore", 'r'}, {"save", 't'}
 	};
 	std::map<std::string, char> actual_mapa; //what we gonna get
 	std::set<char> used_keys;
-	std::set<std::string> allowed_names {"up", "down", "left", "right", "exit", "new"};
+	std::set<std::string> allowed_names {"up", "down", "left", "right", "exit", "new", "restore", "save"};
 	char tmp;
 	if(!file){
 		return mapa;

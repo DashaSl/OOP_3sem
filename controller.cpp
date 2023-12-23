@@ -65,7 +65,7 @@ bool Controller::move(Move_constant way){
 
 
 void Controller::move_enemy(){
-	field->move_inter_enemy(cord[0], cord[1]);
+	field->move_inter_enemy();
 }
 
 Field* Controller::get_field(){

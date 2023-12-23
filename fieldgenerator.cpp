@@ -99,3 +99,8 @@ void FieldGenerator::generate_lvl2(Controller& cont, Player& plr){
 	cont.change_field(ans);
 	ans = nullptr;
 }
+
+
+uint8_t FieldGenerator::restore_lvl(std::string file_name, Controller& cont, Player& plr){
+	return 0;
+}

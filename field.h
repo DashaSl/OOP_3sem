@@ -37,7 +37,7 @@ public:
 	Field& operator = (Field&& other);
 
 	void add_enemy(BaseEnemy* enemy);
-	void move_inter_enemy(uint8_t x, uint8_t y) const;
+	void move_inter_enemy() const;
 	bool check_enemy(uint8_t x, uint8_t y) const;
 };
 

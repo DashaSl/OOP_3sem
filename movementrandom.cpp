@@ -9,6 +9,14 @@ int8_t MovementRandom::ret_neg_pos(){
 } // returns either 1 or -1
 
 std::pair<uint8_t, uint8_t> MovementRandom::move(Controller& cont, std::pair<uint8_t, uint8_t> cur_cord){
+
+
+	std::pair<uint8_t, uint8_t> player_cord = cont.get_cord();
+
+	if(player_cord == cur_cord){
+		return cur_cord;
+	}
+
 	int8_t add_x;
 	int8_t add_y;
 	bool not_through = true;

@@ -5,7 +5,7 @@
 #define GAME
 class GameStalker;
 enum status{killed, win_lvl2, none};
-enum end_of_cycle{started_new, next_level, nothing_new};
+enum end_of_cycle{started_new, next_level, nothing_new, restored_game};
 class Game{
 private:
 	Controller controller;
@@ -28,7 +28,8 @@ public:
 	Player& get_player();
 	int get_level();
 	std::pair<uint8_t, uint8_t> get_cur_cords();
-	void restore_game();
+	void restore_game(std::string file_name);
+	void save_game(std::string file_name);
 	void start_again();
 };
 

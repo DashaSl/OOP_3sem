@@ -10,6 +10,8 @@ void Stream::stream_change(std::string path){
 	right_ = mapa["right"];
 	exit_ = mapa["exit"];
 	new_ = mapa["new"];
+	restore_ = mapa["restore"];
+	save_ = mapa["save"];
 }
 
 
@@ -20,6 +22,8 @@ Move_constant Stream::key_operator(char c){
 	if(c == right_) return right;
 	if(c == exit_) return quit;
 	if(c == new_) return news;
+	if(c == restore_) return restore;
+	if(c == save_) return save;
 	return no; //just random letter to ignore
 }
 

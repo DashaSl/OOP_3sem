@@ -12,6 +12,8 @@ private:
 	char right_ = 'd';
 	char exit_ = 'q';
 	char new_ = 'e';
+	char restore_ = 'r';
+	char save_ = 't';
 public:
 	void stream_change(std::string path);
 	Move_constant key_operator(char c);

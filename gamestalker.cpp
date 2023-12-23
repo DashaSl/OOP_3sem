@@ -91,6 +91,13 @@ std::string GameStalker::start_info(Move_constant c, char symb){
 		messend.output_message(emfm);
 		return "";
 	}
+	if(c == restore || c == save){
+		std::cout << "Write file name: ";
+		std::string file_name;
+		std::cin >> file_name;
+		return file_name;
+
+	}
 	EventMessageMove emm = EventMessageMove(symb, c);
 	messend.output_message(emm);
 	std::string ans;
@@ -181,14 +188,14 @@ void GameStalker::get_info(Move_constant c, end_of_cycle eoc){
 	cur_health = game.get_player().get_health();
 	cur_score = game.get_player().get_score();
 	cur_cords = game.get_controller().get_cord();
-	if(cur_level != game.get_level() || eoc == next_level || eoc == started_new){
+	if(cur_level != game.get_level() || eoc == next_level || eoc == started_new || eoc == restored_game){
 		width = game.get_controller().get_width();
 		height = game.get_controller().get_height();
 		cur_level = game.get_level();
 		this->update_lvl();
 	}
 
-	if(eoc == started_new){
+	if(eoc == started_new || eoc == restored_game){
 		player_name = game.get_player().get_name();
 		max_health = game.get_player().get_max_health();
 		EventMessageNew emn = EventMessageNew(game.get_controller());
