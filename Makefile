@@ -31,7 +31,7 @@ read.o: read.h read.cpp
 	g++ -c read.cpp
 gamestalker.o: gamestalker.h gamestalker.cpp game.h fieldgenerator.h drawer.h
 	g++ -c gamestalker.cpp
-drawer.o: drawer.h
+drawer.o: drawer.h drawer.cpp
 	g++ -c drawer.cpp
 eventmessage.o: eventmessage.cpp eventmessage.h 
 	g++ -c eventmessage.cpp
@@ -64,10 +64,9 @@ interactionteleport.o: interactionteleport.h interactionteleport.cpp
 interactionhp.o: interactionhp.h interactionhp.cpp
 	g++ -c interactionhp.cpp
 	
-fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h controller.h typeeraser.h typeeraser.cpp
+fieldgenerator.o: fieldgenerator.cpp fieldgenerator.h controller.h 
 	g++ -c fieldgenerator.cpp	
-#typeeraser.o: typeeraser.h typeeraser.cpp
-#	g++ -c typeeraser.cpp	
+
 
 	
 clean:

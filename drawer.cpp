@@ -4,6 +4,7 @@
 
 
 void Drawer::draw(Controller& cont, Player& plr){
+	system("clear");
 	std::cout << plr.get_name() << " health: " << (int)plr.get_health() << "/" << (int)plr.get_max_health() << " score: " << (int)plr.get_score() << std::endl;
 
 	int x_player = cont.get_cord().first;

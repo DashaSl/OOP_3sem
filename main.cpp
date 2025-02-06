@@ -5,8 +5,6 @@ int main(int argc, char* argv[]){
 	Stream rd;
 	Read r;
 
-
-	std::cout << "Config info --------\n";
 	if(argc > 2){
 		std::cout << "Too many arguments! only first one will count!\n";
 	}else if(argc > 1){
@@ -14,30 +12,12 @@ int main(int argc, char* argv[]){
 		rd.stream_change(tmp_string);
 		std::cout << "Configuration "<<tmp_string << " was chosen\n";
 	}
-	std::cout << "end config info --------\n";
-
-
-	std::cout << "do you want to output messages into terminal or into file?\n";
-	std::cout << "press:\na - only terminal, b - only file, c - terminal and file\n";
+	
+	char button_act = 'a';
 	std::string button = "d";
-	char button_act = button[0];
-	while(button_act != 'a' && button_act != 'b' && button_act != 'c'){
-		std::cin >> button;
-		if(button.size() > 1 || button.size() == 0){
-			std::cout << "too many/not enough args!\n";
-			continue;
-		}
-		button_act = button[0];
-	}
 	std::set<StreamWriterInterface*> ans;
-	if(button_act == 'a' || button_act == 'c'){
-		ans.insert(new TerminalWriter());
-	}
-	if(button_act == 'b' || button_act == 'c'){
-		std::cout << "enter name:\n";
-		std::cin >> button;
-	    ans.insert(new FileWriter(button));
-	}
+	ans.insert(new TerminalWriter());
+
 	MessageSend messend = MessageSend(ans);
 
 
@@ -45,31 +25,19 @@ int main(int argc, char* argv[]){
 	std::cin >> button;
 	Game gm = Game(rd, r, button);
 	std::cout << "starting game\n";
+	std::cout << "You need to go from upper left corner to the lower right corner. To do so, you need to go through several walls." << std::endl;
+	std::cout << "Each wall has 4 doors - the one which does nothing, other can teleport you, third does damage to you and fourth can give you points." << std::endl;
+	std::cout << "Also there are enemies which look like XX. They can either teleport you or do damage."<< std::endl;
+	std::cout << "You look like @@. Use a,w,d,s buttons to go right, up, left, down. Use q in order to quit. Use e to start new game." << std::endl;
 	Drawer dr;
 	GameStalker gmstkr = GameStalker(gm, dr, messend);
 
-	//std::pair<uint8_t, uint8_t> abbaa = std::make_pair(0, 0);
-	//Enemy bob = Enemy(abbaa, gm.get_player(), gm.get_controller(), MovementStalker(), InteractionTeleport());
 
 	gm.run(gmstkr);
 
-	gmstkr.prt_info();
 	for(StreamWriterInterface* wrt : ans){
-		std::cout << wrt << "\n";
 		delete wrt;
 	}
-	/*
-	EventMessageDead emd = EventMessageDead(cont);
-	EventMessageWin emw = EventMessageWin(plr);
-	EventMessageNew emn = EventMessageNew(cont);
-	EventMessageMove emm = EventMessageMove('s', up);
-	EventMessageFailMove emfm = EventMessageFailMove('p');
 
-	messend.output_message(emd);
-	messend.output_message(emw);
-	messend.output_message(emn);
-	messend.output_message(emfm);
-	std::cout << emd << emw << emn << emm << emfm;*/
-	std::cout << "Program finished!\n";
 	return 0;
 }

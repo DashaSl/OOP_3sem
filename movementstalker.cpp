@@ -27,7 +27,7 @@ std::pair<uint8_t, uint8_t> MovementStalker::move(Controller& cont, std::pair<ui
 		if(is_wall){
 			cur_cord.second = cur_cord.second - 1;
 			return cur_cord;
-			//здесь может возникнуть вопрос - а вдруг там стена! - но нет, тог да мы бы не были с игроком на одном уровни (стены чередуются с проходами)
+			//здесь может возникнуть вопрос - а вдруг там стена! - но нет, тог да мы бы не были с игроком на одном уровне (стены чередуются с проходами)
 		}else{
 			int8_t diff = (int8_t)cur_cord.first - (int8_t)player_cord.first; //  @@   XX -> diff > 0 ->
 			if(diff > 0){
